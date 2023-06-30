@@ -1,0 +1,30 @@
+ROUTERS = Se encargan de rutear datos desde una maquina hacia otra, cada router esta conectado a uno o mas routers.
+			Cada router sobe cuales son sus terminales y routers vecinos.
+			Los datos se envian de a tramos.
+			El router recibe en cada paso diferentes partes de los datos y luego los arma para
+			finalmente enviarlos a la terminal destino.
+			Se elige el camino mas optimo para enviar los datos.
+TERMINALES = Emisoras y receptoras de paginas, cada una conectada a un unico router.
+
+
+Packet
+<64> = <16> PacketInfo
+		<8> PartPosition
+		<8> TotalParts
+		<8> NextRouter2
+		<8> NextRouter1
+		<8> FnlTerminarIP
+		<8> FnlRouterIP
+		
+		
+		
+
+		---------------------
+		|		******		|
+		|					|
+		|					|
+		|		ROUTER		|
+		|					|
+		|					|
+		|		******		|
+		---------------------
