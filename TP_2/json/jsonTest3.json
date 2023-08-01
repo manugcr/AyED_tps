@@ -1,0 +1,31 @@
+{
+  "laureates": [
+    {
+      "id": "1",
+      "firstname": "Wilhelm Conrad",
+      "prizes": [
+        {
+          "year": "1901"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "firstname": "Hendrik A.",
+      "prizes": [
+        {
+          "year": "1902"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "firstname": "Pieter",
+      "prizes": [
+        {
+          "year": "1902"
+        }
+      ]
+    }
+  ]
+}

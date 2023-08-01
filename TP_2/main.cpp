@@ -15,7 +15,7 @@ using json = nlohmann::ordered_json;
 // ====================================================================
 int main(int argc, char *argv[]) {
     // Read json
-    ifstream i("json/jsonTest2.json");
+    ifstream i("json/jsonTest.json");
     auto j = nlohmann::ordered_json::parse(i);
 
     // Vectors
@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
         cout << "============================================================" << endl;
         T1.showTree();
     } else if (answer == "key" || answer == "Key" || answer == "k") {
-        cout << "Sort by key, {id,firstname, surname, born, bornCountry ...}" << endl;
+        cout << "Sort by key, {id, firstname, surname, born, died ...}" << endl;
         cin >> key;
         createBinaryTree(serial, &T1);	// Creamos el arbol binario con el json serializado
         cout << "============================================================" << endl;

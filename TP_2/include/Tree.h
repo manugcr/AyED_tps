@@ -51,12 +51,15 @@ template<class T> void Tree<T>::searchTree(T x, Node<T>*& n) {
         n->info = x;
         n->der = NULL;
         n->izq = NULL;
+//        cout<<"ACA ARBOL 0: " << x.data << " PUNTERO: " << n->info.data <<endl;
     }
     if (!isEqual(x, n->info)) {
         if ((n->info.type == "Array") && (x.type == "Index")) {
+//        	cout<<"ACA ARBOL 1: " << x.data << " PUNTERO: " << n->info.data <<endl;
 			searchTree(x, n->izq);
         }
         if ((n->info.type == "Index") && (x.type == "Key")) {
+//        	cout<<"ACA ARBOL 2: " << x.data << " PUNTERO: " << n->info.data <<endl;
             if (n->der == NULL) {
                 searchTree(x, n->izq); 	
             } else {
@@ -64,9 +67,11 @@ template<class T> void Tree<T>::searchTree(T x, Node<T>*& n) {
             }
         }
         if ((n->info.type == "Array") && (x.type == "Key")) {
+//        	cout<<"ACA ARBOL 3: " << x.data << " PUNTERO: " << n->info.data <<endl;
             searchTree(x, n->izq);
         }
         if ((n->info.type == "Key") && (x.type == "Value")) {
+//        	cout<<"ACA ARBOL 4: " << x.data << " PUNTERO: " << n->info.data <<endl;
             if (n->izq != NULL) {
                 searchTree(x, n->der);
             } else {
@@ -74,9 +79,11 @@ template<class T> void Tree<T>::searchTree(T x, Node<T>*& n) {
             }
         }
         if ((n->info.type == "Array") && (x.type == "Value")) {
+//        	cout<<"ACA ARBOL 5: " << x.data << " PUNTERO: " << n->info.data <<endl;
             searchTree(x, n->izq);
         }
         if ((n->info.type == "Index") && (x.type == "Value")) {
+//        	cout<<"ACA ARBOL 6: " << x.data << " PUNTERO: " << n->info.data <<endl;
             if (n->der != NULL) {
                 searchTree(x, n->der);
             } else {
@@ -84,12 +91,15 @@ template<class T> void Tree<T>::searchTree(T x, Node<T>*& n) {
             }
         }
         if ((n->info.type == "Key") && (x.type == "Key")) {
+//        	cout<<"ACA ARBOL 7: " << x.data << " PUNTERO: " << n->info.data <<endl;
             searchTree(x, n->der);
         }
         if ((n->info.type == "Array") && (x.type == "Array")) {
+//        	cout<<"ACA ARBOL 8: " << x.data << " PUNTERO: " << n->info.data <<endl;
             searchTree(x, n->izq);
         }
         if ((n->info.type == "Index") && (x.type == "Array")) {
+//        	cout<<"ACA ARBOL 9: " << x.data << " PUNTERO: " << n->info.data <<endl;
             if (n->der != NULL) {
                 searchTree(x, n->der);
             } else {
@@ -97,9 +107,11 @@ template<class T> void Tree<T>::searchTree(T x, Node<T>*& n) {
             }
         }
         if ((n->info.type == "Key") && (x.type == "Array")) {
+//        	cout<<"ACA ARBOL 10: " << x.data << " PUNTERO: " << n->info.data <<endl;
             searchTree(x, n->der);
         }
         if ((n->info.type == "Index") && (x.type == "Index")) {
+//        	cout<<"ACA ARBOL 11: " << x.data << " PUNTERO: " << n->info.data <<endl;
             if (n->info.hierarchy == x.hierarchy) {
                 searchTree(x, n->der);
             } else if (x.hierarchy < n->info.hierarchy) {
@@ -111,29 +123,19 @@ template<class T> void Tree<T>::searchTree(T x, Node<T>*& n) {
             }
         }
         if ((n->info.type == "Key") && (x.type == "Index")) {
+//        	cout<<"ACA ARBOL 12: " << x.data << " PUNTERO: " << n->info.data <<endl;
             searchTree(x, n->der);
         }
     }  
 }
 
 template<class T> void Tree<T>::rid(Node<T>* aux) {
-	// Este método recorre el árbol binario en preorden, es decir, primero visita la raíz del árbol, 
-	// luego recorre el subárbol izquierdo y por último recorre el subárbol derecho.
-	// Para cada nodo que visita, el método realiza las siguientes acciones:
-	// 1) Si el tipo de dato del nodo es "Key", imprime el valor del nodo seguido de dos puntos y un espacio, 
-	//    y luego recorre el subárbol izquierdo y derecho del nodo.
-	// 2) Si el tipo de dato del nodo es "Index", imprime la palabra "Index" seguida de dos puntos y un espacio, 
-	//    luego imprime el valor del nodo, y finalmente recorre el subárbol izquierdo y derecho del nodo.
-	// 3) Si el tipo de dato del nodo es cualquier otro, imprime el valor del nodo y 
-	//    luego recorre el subárbol izquierdo y derecho del nodo.
-	// Al finalizar el recorrido del árbol, el método imprime una línea con una cadena de caracteres repetidos para separar cada elemento del árbol
-
     if (aux == NULL) return;
-	if (aux->info.type == "Key") { // Si el tipo de dato es "Key" Imprime el valor del nodo seguido de dos puntos y un espacio
+	if (aux->info.type == "Key") { // Si el tipo de dato es "Key"
         if (aux->info.data == "id")
 			cout << "=============================================================" << endl;
 		cout << aux->info.data << ": ";
-    } else if (aux->info.type == "Index") { // Si el tipo de dato es "Index" Imprime la palabra "Index" seguida de dos puntos y un espacio, luego imprime el valor del nodo
+    } else if (aux->info.type == "Index") { // Si el tipo de dato es "Index"
         cout << "\n" << "Index: " << aux->info.data << endl;
     } else { // Si el tipo de dato es cualquier otro Imprime el valor del nodo
         cout << aux->info.data << endl;
@@ -160,14 +162,14 @@ template<class T> void Tree<T>::idr(Node<T>* aux){
 template<class T> void Tree<T>::ird(Node<T>* aux){
 	if(aux != NULL){
 		if (aux->info.type == "Key") {
-            idr(aux->izq);
+            ird(aux->izq);
             cout << aux->info.data << ": ";
-            idr(aux->der);
+            ird(aux->der);
             cout << "=============================================================" << endl;
         } else {
-            idr(aux->izq);
+            ird(aux->izq);
             cout << aux->info.data << endl;
-            idr(aux->der);
+            ird(aux->der);
         }
 	}
 }

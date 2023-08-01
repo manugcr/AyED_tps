@@ -238,35 +238,6 @@
           ]
         }
       ]
-    },
-    {
-      "id": "10",
-      "firstname": "J.J.",
-      "surname": "Thomson",
-      "born": "1856-12-18",
-      "died": "1940-08-30",
-      "bornCountry": "United Kingdom",
-      "bornCountryCode": "GB",
-      "bornCity": "Cheetham Hill",
-      "diedCountry": "United Kingdom",
-      "diedCountryCode": "GB",
-      "diedCity": "Cambridge",
-      "gender": "male",
-      "prizes": [
-        {
-          "year": "1906",
-          "category": "physics",
-          "share": "1",
-          "motivation": "\"in recognition of the great merits of his theoretical and experimental investigations on the conduction of electricity by gases\"",
-          "affiliations": [
-            {
-              "name": "University of Cambridge",
-              "city": "Cambridge",
-              "country": "United Kingdom"
-            }
-          ]
-        }
-      ]
     }
   ]
 }
