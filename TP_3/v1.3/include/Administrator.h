@@ -15,36 +15,36 @@ class Administrator {
         List<Router *> *routers_list;
         int routers_timeout_matrix[256][256];
     public:
-        Administrator(void);
-        Administrator(int b_c_m[256][256], List<int> *t_l);
+		Administrator(void);
+		Administrator(int b_c_m[256][256], List<int> *t_l);
 		Administrator(bitset<1> a_r_m[256][256], int b_c_m[256][256], List<int> *t_l);
-        List<Router *> *extractConnectedRouters(int n);
-        List<int> *extractBandwidths(int n);
-        void setTerminals(List<int> *l);
-        void buildAdjacencyRoutersMatrix(void);
-        void fillWithRandomDatas(void);
-        List<DATA> *createRandomDatas(bitset<8> r_IP, bitset<8> t_IP);
-        void createRouters(void);
-        int routersCount(void);
-        void setPathToPackets(void);
-        PACKET setNextRouterToPacket(PACKET p, bitset<8> b);
-        bitset<8> searchOptimalPath(Router *i_r, Router *f_r);
-        int dijkstra(int g[][256], int i_p, int f_p, int r_c);
-        void calculateTimeouts(void);
-        void simulationStep(void);
-        bool hasFinished(void);
-        int dataOutputCount(void);
-        int dataInputCount(void);
-        void showAdjacencyRoutersMatrix(void);
-        void showBandwidthConnectionsMatrix(void);
-        void showTimeoutMatrix(void);
-        void showConnections(void);
-        void showGeneratedDatas(void);
-        void showReceivedDatas(void);
-        void showPacketsInputs(void);
-        void showDatasOutputsQueues(void);
-        void showPacketsOutputsQueues(void);
-        void showParcialDatas(void);
+		List<Router *> *extractConnectedRouters(int n);
+		List<int> *extractBandwidths(int n);
+		void setTerminals(List<int> *l);
+		void buildAdjacencyRoutersMatrix(void);
+		void fillWithRandomDatas(void);
+		List<DATA> *createRandomDatas(bitset<8> r_IP, bitset<8> t_IP);
+		void createRouters(void);
+		int routersCount(void);
+		void setPathToPackets(void);
+		PACKET setNextRouterToPacket(PACKET p, bitset<8> b);
+		bitset<8> searchOptimalPath(Router *i_r, Router *f_r);
+		int dijkstra(int g[][256], int i_p, int f_p, int r_c);
+		void calculateTimeouts(void);
+		void simulationStep(void);
+		bool hasFinished(void);
+		int dataOutputCount(void);
+		int dataInputCount(void);
+		void showAdjacencyRoutersMatrix(void);
+		void showBandwidthConnectionsMatrix(void);
+		void showTimeoutMatrix(void);
+		void showConnections(void);
+		void showGeneratedDatas(void);
+		void showReceivedDatas(void);
+		void showPacketsInputs(void);
+		void showDatasOutputsQueues(void);
+		void showPacketsOutputsQueues(void);
+		void showParcialDatas(void);
 };
 
 Administrator::Administrator(void){
@@ -70,7 +70,7 @@ Administrator::Administrator(int b_c_m[256][256], List<int> *t_l) {
             routers_timeout_matrix[i][j] = MAXIMUM;
 };
 
-Administrator::Administrator(bitset<1> a_r_m[256][256], int b_c_m[256][256], List<int> *t_l) {
+ Administrator::Administrator(bitset<1> a_r_m[256][256], int b_c_m[256][256], List<int> *t_l) {
     for(int i = 0; i < 256; i++)
         for(int j = 0; j < 256; j++)
             adjacency_routers_matrix[i][j] = a_r_m[i][j];
@@ -259,15 +259,15 @@ bitset<8> Administrator::searchOptimalPath(Router *i_r, Router *f_r) {
 
 int Administrator::dijkstra(int g[][256], int i_p, int f_p, int r_c) {
     int output;
-    int previous_costs[r_c];
-    int minimal_cost[r_c];
-    int actual_point;
-    int tmp_point;
-    int min_distance;
-    int nw_distance;
-    bool visited[r_c];
+    int previous_costs[r_c];			// Almacena costos acumulados minimos desde origen hasta cada nodo
+    int minimal_cost[r_c];				// Almacena costos minimos conocidos para llegar a cada nodo desde el origen
+    int actual_point;					// Nodo actual
+    int tmp_point;						
+    int min_distance;					// Almacena el costo minimo encontrado a cada iteracion
+    int nw_distance;					// Almacena el nuevo costo calculado
+    bool visited[r_c];					// Nodos ya visitados
     bool flag = true;
-    for(int i = 0; i < r_c; i++) {
+    for(int i = 0; i < r_c; i++) {		// Inicializo todos los nodos como no visitados y los caminos como infinitos
         visited[i] = false;
         minimal_cost[i] = MAXIMUM;
         previous_costs[i] = -1;
@@ -275,18 +275,18 @@ int Administrator::dijkstra(int g[][256], int i_p, int f_p, int r_c) {
     visited[i_p] = true;
     minimal_cost[i_p] = 0;
     actual_point = i_p;
-    while(actual_point != f_p && flag == true) {
+    while(actual_point != f_p && flag == true) {		// Ejecuto hasta que se llegue al nodo final o se visiten todos los nodos
         flag = false;
         min_distance = MAXIMUM;
         for(int i = 0; i < r_c; i++)
             if(visited[i] == false) {
-                nw_distance = minimal_cost[actual_point]+g[actual_point][i];
-                if(nw_distance < minimal_cost[i]) {
-                    minimal_cost[i] = nw_distance;
+                nw_distance = minimal_cost[actual_point]+g[actual_point][i];	// Calculo costo para llegar al nodo i desde el actual.
+                if(nw_distance < minimal_cost[i]) {		// Actualiza el costo minimo conocido para llegar a un nodo especifico
+                    minimal_cost[i] = nw_distance;		
                     previous_costs[i] = actual_point;
                     flag = true;
                 }
-                if(minimal_cost[i] < min_distance) {
+                if(minimal_cost[i] < min_distance) {	// Encuentra el proximo nodo a visitar en el camino mas corto.
                     min_distance = minimal_cost[i];
                     tmp_point = i;
                     flag = true;
@@ -295,10 +295,11 @@ int Administrator::dijkstra(int g[][256], int i_p, int f_p, int r_c) {
         actual_point = tmp_point;
         visited[actual_point] = true;
     }
-    while(f_p != i_p) {
-        output = f_p;
+    while(f_p != i_p) {				// Se construye el camino optimo desde el nodo final hasta el origen usando los enlaces anteriores
+        output = f_p;				// guardados en previous_costs.
         f_p = previous_costs[f_p];
     }
+//    cout<<"DIJKSTRA:    "<<output<<endl;
     return output;
 }
 
@@ -314,7 +315,7 @@ void Administrator::calculateTimeouts(void) {
         aux_connected_router = actual_router->getData()->getConnectedRouters()->getHead();
         while(queue != NULL) {
             aux_router = routers_list->getHead();
-            j = 0;
+      	      j = 0;
             while(aux_router->getData() != aux_connected_router->getData()) {
                 j++;
                 aux_router = aux_router->getNext();
@@ -486,7 +487,7 @@ void Administrator::showGeneratedDatas(void) {
         terminal = router->getData()->getConnectedTerminals()->getHead();
         cout<<"\nrouter IP: "<<router->getData()->getRouterIP()<<endl;
         if(terminal == NULL)
-            cout<<"no connected terminals"<<endl;;
+            cout<<"no connected terminals"<<endl;	
         while(terminal != NULL) {
             terminal->getData()->showTerminalDataOutput();
             terminal = terminal->getNext();

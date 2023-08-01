@@ -23,16 +23,19 @@ int main(int argc, char *argv[]) {
     bitset<1> adjacency_routers_matrix[256][256];
     int bandwidth_connections_matrix[256][256];
     List<int> *terminals_list = new List<int>();
-    for(int i = 0; i < 256; i++)
+    
+    for(int i = 0; i < 256; i++)							// Rellenamos las matrices con cero.	
         for(int j = 0; j < 256; j++)
             adjacency_routers_matrix[i][j] = 0;
     for(int i = 0; i < 256; i++)
         for(int j = 0; j < 256; j++)
             bandwidth_connections_matrix[i][j] = 0;
+            
     string line = "";
     int counter = 0;
-    ifstream txt_toRead("config/configuration.txt");
-    while(line != "adjacency_router_matrix =")
+    
+    ifstream txt_toRead("config/configuration_test.txt");	// Leo el archivo de configuracion para rellenar las matrices con los
+    while(line != "adjacency_router_matrix =")				// parametros que configuramos.
         getline(txt_toRead, line);
     for(int i = 0; line != "END"; i++) {
         getline(txt_toRead, line);
@@ -67,13 +70,15 @@ int main(int argc, char *argv[]) {
         getline(txt_toRead, line);
     }
     txt_toRead.close();
+    
+    // Aca comienza el programa una vez ya configuradas las matrices.
     Administrator *administrator = new Administrator(adjacency_routers_matrix, bandwidth_connections_matrix, terminals_list);
     cout<<endl;
-    administrator->showAdjacencyRoutersMatrix();
+    administrator->showAdjacencyRoutersMatrix();		// Mostramos la matriz del .txt
     cout<<endl;
-    administrator->showBandwidthConnectionsMatrix();
+    administrator->showBandwidthConnectionsMatrix();	// Mostramos la matriz del .txt
     cout<<endl;
-    administrator->showConnections();
+    administrator->showConnections();					
     cout<<endl;
     administrator->showGeneratedDatas();
     cout<<endl;

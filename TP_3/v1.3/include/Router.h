@@ -4,58 +4,59 @@
 #include "Structs.h"
 #include "List.h"
 
+
 using namespace std;
 
 class Router {
     private:
-        bitset<8> router_IP;
-        List<Terminal *> *connected_terminals;
-        List<Router *> *connected_routers;
-        List<int> *bandwidths;
-        List<PACKET> *packets_inputs;
-        List<List<DATA> *> *datas_outputs_queues;
-        List<List<PACKET> *> *packets_outputs_queues;
-        List<PACKET> *parcial_datas;
+		bitset<8> router_IP;
+		List<Terminal *> *connected_terminals;
+		List<Router *> *connected_routers;
+		List<int> *bandwidths;
+		List<PACKET> *packets_inputs;
+		List<List<DATA> *> *datas_outputs_queues;
+		List<List<PACKET> *> *packets_outputs_queues;
+		List<PACKET> *parcial_datas;
     public:
-        Router(void);
-        Router(bitset<8> r_IP, List<Terminal *> *c_t, List<int> *b);
-        bitset<8> extractFnlRouterIP(DATA d);
-        bitset<8> extractFnlRouterIP(PACKET p);
-        bitset<8> extractFnlTerminalIP(DATA d);
-        bitset<8> extractFnlTerminalIP(PACKET p);
-        bitset<8> extractInicialTerminalIP(DATA d);
-        bitset<8> extractInicialTerminalIP(PACKET p);
-        bitset<8> extractNextRouter(PACKET p);
-        bitset<8> extractPartsTotal(PACKET p);
-        bitset<8> extractPartPosition(PACKET p);
-        bitset<16> extractPacketInfo(PACKET p);
-        void setConnectedRouters(List<Router *> *l);
-        bitset<8> getRouterIP(void);
-        List<Terminal *> *getConnectedTerminals(void);
-        List<Router *> *getConnectedRouters(void);
-        List<PACKET> *getPacketsInputs(void);
-        List<List<DATA> *> *getDatasOutputsQueues(void);
-        List<List<PACKET> *> *getPacketsOutputsQueues(void);
-        List<PACKET> *getParcialDatas(void);
-        void sendToTerminalsRouterIP(void);
-        List<PACKET> *convertDataToPackets(DATA d);
-        void movePacketsToOutputsQueues(void);
-        void sortPacketsQueues(void);
-        void sendDatasToTerminals(void);
-        void recieveDatasFromTerminals(void);
-        void sendPacketsToRouters(void);
-        void recievePacketsFromRouters(PACKET p);
-        void checkBuildAndSortDatas(void);
-        List<PACKET> *checkCompletedPacket(NodeList<PACKET> *n_p);
-        List<PACKET> *sortPacketsList(List<PACKET> *l);
-        void dlteFromParcialDatas(List<PACKET> *l, bool b);
-        DATA buildData(List<PACKET> *l);
-        void showConnectedTerminalsIP(void);
-        void showConnectedRoutersIP(void);
-        void showPacketsInputs(void);
-        void showDatasOutputsQueues(void);
-        void showPacketsOutputsQueues(void);
-        void showParcialDatas(void);
+		Router(void);
+		Router(bitset<8> r_IP, List<Terminal *> *c_t, List<int> *b);
+		bitset<8> extractFnlRouterIP(DATA d);
+		bitset<8> extractFnlTerminalIP(DATA d);
+		bitset<8> extractInicialTerminalIP(DATA d);
+		bitset<8> extractFnlRouterIP(PACKET p);
+		bitset<8> extractFnlTerminalIP(PACKET p);
+		bitset<8> extractInicialTerminalIP(PACKET p);
+		bitset<8> extractNextRouter(PACKET p);
+		bitset<8> extractPartsTotal(PACKET p);
+		bitset<8> extractPartPosition(PACKET p);
+		bitset<16> extractPacketInfo(PACKET p);
+		void setConnectedRouters(List<Router *> *l);
+		bitset<8> getRouterIP(void);
+		List<Terminal *> *getConnectedTerminals(void);
+		List<Router *> *getConnectedRouters(void);
+		List<PACKET> *getPacketsInputs(void);
+		List<List<DATA> *> *getDatasOutputsQueues(void);
+		List<List<PACKET> *> *getPacketsOutputsQueues(void);
+		List<PACKET> *getParcialDatas(void);
+		void sendToTerminalsRouterIP(void);
+		List<PACKET> *convertDataToPackets(DATA d);
+		void movePacketsToOutputsQueues(void);
+		void sortPacketsQueues(void);
+		void sendDatasToTerminals(void);
+		void recieveDatasFromTerminals(void);
+		void sendPacketsToRouters(void);
+		void recievePacketsFromRouters(PACKET p);
+		void checkBuildAndSortDatas(void);
+		List<PACKET> *checkCompletedPacket(NodeList<PACKET> *n_p);
+		List<PACKET> *sortPacketsList(List<PACKET> *l);
+		void dlteFromParcialDatas(List<PACKET> *l, bool b);
+		DATA buildData(List<PACKET> *l);
+		void showConnectedTerminalsIP(void);
+		void showConnectedRoutersIP(void);
+		void showPacketsInputs(void);
+		void showDatasOutputsQueues(void);
+		void showPacketsOutputsQueues(void);
+		void showParcialDatas(void);
 };
 
 Router::Router(void){
@@ -317,7 +318,7 @@ void Router::sendPacketsToRouters(void) {
     NodeList<PACKET> *packet;
     while(router != NULL) {
         int counter = 0;
-        packet = packets_queue->getData()->getHead();
+        packet = packets_queue->getData()->getHead();	
         while(counter < bandwidth->getData() && packet != NULL) {
             router->getData()->recievePacketsFromRouters(packet->getData());
             packet = packet->getNext();
@@ -462,31 +463,81 @@ void Router::showConnectedRoutersIP(void) {
     }
 }
 
+//void Router::showPacketsInputs(void) {
+//    NodeList<PACKET> *tmp = packets_inputs->getHead();
+//    if(tmp == NULL)
+//        cout<<"EMPTY"<<endl;
+//    while(tmp != NULL) {
+//        cout<<tmp->getData().packet<<endl;
+//        tmp = tmp->getNext();
+//    }
+//}
 void Router::showPacketsInputs(void) {
     NodeList<PACKET> *tmp = packets_inputs->getHead();
-    if(tmp == NULL)
-        cout<<"EMPTY"<<endl;
-    while(tmp != NULL) {
-        cout<<tmp->getData().packet<<endl;
+    if (tmp == NULL)
+        cout << "EMPTY" << endl;
+    
+    while (tmp != NULL) {
+        std::bitset<64> packet_data = tmp->getData().packet;
+        // Imprimir los 16 bits mas a la izquierda juntos
+        for (int i = 63; i >= 48; i--) {
+            cout << packet_data[i];
+        }
+        cout << " "; // Agregar espacio antes de los siguientes 48 bits
+        // Imprimir los siguientes 48 bits separados cada 8 bits
+        for (int i = 47; i >= 0; i--) {
+            cout << packet_data[i];
+            if (i % 8 == 0 && i > 0) {
+                cout << " "; // Agregar espacio despues de cada 8 bits
+            }
+        }
+        cout << endl;
         tmp = tmp->getNext();
     }
 }
 
+//void Router::showDatasOutputsQueues(void) {
+//    NodeList<List<DATA> *> *queue = datas_outputs_queues->getHead();
+//    NodeList<Terminal *> *terminal = connected_terminals->getHead();
+//    NodeList<DATA> *data;
+//    if(queue == NULL)
+//        cout<<"\nno connected terminals";
+//    while(queue != NULL) {
+//        data = queue->getData()->getHead();
+//        cout<<"\n(terminal "<<terminal->getData()->getRouterIP()<<")";
+//        if(data == NULL)
+//            cout<<" EMPTY";
+//        while(data != NULL) {
+//            if(data != queue->getData()->getHead())
+//                cout<<"\n                   ";
+//            cout<<" "<<data->getData().data;
+//            data = data->getNext();
+//        }
+//        queue = queue->getNext();
+//        terminal = terminal->getNext();
+//    }
+//}
 void Router::showDatasOutputsQueues(void) {
     NodeList<List<DATA> *> *queue = datas_outputs_queues->getHead();
     NodeList<Terminal *> *terminal = connected_terminals->getHead();
     NodeList<DATA> *data;
-    if(queue == NULL)
-        cout<<"\nno connected terminals";
-    while(queue != NULL) {
+    if (queue == NULL)
+        cout << "\nno connected terminals";
+
+    while (queue != NULL) {
         data = queue->getData()->getHead();
-        cout<<"\n(terminal "<<terminal->getData()->getRouterIP()<<")";
-        if(data == NULL)
-            cout<<" EMPTY";
-        while(data != NULL) {
-            if(data != queue->getData()->getHead())
-                cout<<"\n                   ";
-            cout<<" "<<data->getData().data;
+        cout << "\n(terminal " << terminal->getData()->getRouterIP() << ")";
+        if (data == NULL)
+            cout << " EMPTY";
+        while (data != NULL) {
+            if (data != queue->getData()->getHead())
+                cout << "\n                   ";
+            cout << " ";
+            // Iterate through the list and print each bitset<16> element
+            for (NodeList<std::bitset<16>> *bit = data->getData().data->getHead(); bit != NULL; bit = bit->getNext()) {
+                std::bitset<16> bits = bit->getData();
+                cout << bits << " ";
+            }
             data = data->getNext();
         }
         queue = queue->getNext();
@@ -494,19 +545,52 @@ void Router::showDatasOutputsQueues(void) {
     }
 }
 
+//void Router::showPacketsOutputsQueues(void) {
+//    NodeList<List<PACKET> *> *queue = packets_outputs_queues->getHead();
+//    NodeList<Router *> *router = connected_routers->getHead();
+//    NodeList<PACKET> *packet;
+//    while(queue != NULL) {
+//        packet = queue->getData()->getHead();
+//        cout<<"\n(router "<<router->getData()->getRouterIP()<<")";
+//        if(packet == NULL)
+//            cout<<" EMPTY";
+//        while(packet != NULL) {
+//            if(packet != queue->getData()->getHead())
+//                cout<<"\n                 ";
+//            cout<<" "<<packet->getData().packet;
+//            packet = packet->getNext();
+//        }
+//        queue = queue->getNext();
+//        router = router->getNext();
+//    }
+//}
 void Router::showPacketsOutputsQueues(void) {
     NodeList<List<PACKET> *> *queue = packets_outputs_queues->getHead();
     NodeList<Router *> *router = connected_routers->getHead();
     NodeList<PACKET> *packet;
-    while(queue != NULL) {
+
+    while (queue != NULL) {
         packet = queue->getData()->getHead();
-        cout<<"\n(router "<<router->getData()->getRouterIP()<<")";
-        if(packet == NULL)
-            cout<<" EMPTY";
-        while(packet != NULL) {
-            if(packet != queue->getData()->getHead())
-                cout<<"\n                 ";
-            cout<<" "<<packet->getData().packet;
+        cout << "\n(router " << router->getData()->getRouterIP() << ")";
+        if (packet == NULL)
+            cout << " EMPTY";
+        while (packet != NULL) {
+            if (packet != queue->getData()->getHead())
+                cout << "\n                 ";
+            std::bitset<64> packet_data = packet->getData().packet;
+            // Imprimir los 16 bits mas a la izquierda juntos
+            cout << " ";
+            for (int i = 63; i >= 48; i--) {
+                cout << packet_data[i];
+            }
+            cout << " "; // Agregar espacio antes de los siguientes 48 bits
+            // Imprimir los siguientes 48 bits separados cada 8 bits
+            for (int i = 47; i >= 0; i--) {
+                cout << packet_data[i];
+                if (i % 8 == 0 && i > 0) {
+                    cout << " "; // Agregar espacio despues de cada 8 bits
+                }
+            }
             packet = packet->getNext();
         }
         queue = queue->getNext();
@@ -514,14 +598,38 @@ void Router::showPacketsOutputsQueues(void) {
     }
 }
 
+//void Router::showParcialDatas(void) {
+//    NodeList<PACKET> *tmp = parcial_datas->getHead();
+//    if(tmp == NULL)
+//        cout<<"EMPTY"<<endl;
+//    while(tmp != NULL) {
+//        cout<<tmp->getData().packet<<endl;
+//        tmp = tmp->getNext();
+//    }
+//}
 void Router::showParcialDatas(void) {
     NodeList<PACKET> *tmp = parcial_datas->getHead();
-    if(tmp == NULL)
-        cout<<"EMPTY"<<endl;
-    while(tmp != NULL) {
-        cout<<tmp->getData().packet<<endl;
+    if (tmp == NULL)
+        cout << "EMPTY" << endl;
+
+    while (tmp != NULL) {
+        std::bitset<64> packet_data = tmp->getData().packet;
+        // Imprimir los 16 bits mas a la izquierda juntos
+        for (int i = 63; i >= 48; i--) {
+            cout << packet_data[i];
+        }
+        cout << " "; // Agregar espacio antes de los siguientes 48 bits
+        // Imprimir los siguientes 48 bits separados cada 8 bits
+        for (int i = 47; i >= 0; i--) {
+            cout << packet_data[i];
+            if (i % 8 == 0 && i > 0) {
+                cout << " "; // Agregar espacio despues de cada 8 bits
+            }
+        }
+        cout << endl;
         tmp = tmp->getNext();
     }
 }
+
 
 #endif

@@ -25,14 +25,14 @@ bandwidth_connections_matrix =
 END
 
 terminals_list =
-4
+1
 0
 0
-4
-2
-0
-5
+1
 0
 0
-3
+1
+0
+0
+1
 END

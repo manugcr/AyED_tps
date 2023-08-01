@@ -5,30 +5,30 @@ using namespace std;
 
 template<class T> class List {
     private:
-        NodeList<T> *head; //es el puntero al nodo cabeza de la lista
-        NodeList<T> *tail; //es el puntero al nodo cola de la lista
+		NodeList<T> *head; //es el puntero al nodo cabeza de la lista
+		NodeList<T> *tail; //es el puntero al nodo cola de la lista
     public:
-        List(void);
-        List(NodeList<T> *n);
-        void add(T d); //agrega un nodo en la cola de la lista
-        void add(T d, int n); //agrega un nodo en la posicion n
-        void add(List<T> *l); //concatena la lista l a la lista original
-        void dlteHead(bool b); //borra el nodo cabeza donde b indica si se hara un borrado fisico del nodo
-        void dlteTail(bool b); //borra el nodo cola donde b indica si se hara un borrado fisico del nodo
-        void dlte(int n, bool b); //borra el nodo en la posicion n donde b indica si se hara un borrado fisico del nodo
-        void clear(bool b); //borra todos los nodos de la lista donde b indica si se hara un borrado fisico del nodo
-        NodeList<T> *getHead(void); //retorna un puntero al nodo cabeza
-        NodeList<T> *getTail(void); //retorna un puntero al nodo cola
-        NodeList<T> *take(int n); //retorna un puntero al nodo en la posicion n
-        List *rest(void); //retorna la lista sin el nodo cola
-        int size(void); //retorna un entero que indica la cantidad de nodos de la lista
-        void swapData(int a, int b); //efectua un swap entre la informacion del nodo en la posicion a con el nodo en la posicion b
-        void swapData(NodeList<T> *a, NodeList<T> *b); //efectua un swap entre la informacion del nodo a con el nodo b
-        int position(T d); //retorna un entero indicando la posicion donde se encuentra el dato d
-        List<T> *listWithoutRepeat(void); //retorna una lista con todos los datos de la lista sin repetir
-        void show(void); //muestra todos los elementos de la lista
-        void showDetailed(void); //muestra todos los elementos de la lista de forma detallada
-        bool isEmpty(void); //retorna true si la lista esta vacia
+		List(void);
+		List(NodeList<T> *n);
+		void add(T d); //agrega un nodo en la cola de la lista
+		void add(T d, int n); //agrega un nodo en la posicion n
+		void add(List<T> *l); //concatena la lista l a la lista original
+		void dlteHead(bool b); //borra el nodo cabeza donde b indica si se hara un borrado fisico del nodo
+		void dlteTail(bool b); //borra el nodo cola donde b indica si se hara un borrado fisico del nodo
+		void dlte(int n, bool b); //borra el nodo en la posicion n donde b indica si se hara un borrado fisico del nodo
+		void clear(bool b); //borra todos los nodos de la lista donde b indica si se hara un borrado fisico del nodo
+		NodeList<T> *getHead(void); //retorna un puntero al nodo cabeza
+		NodeList<T> *getTail(void); //retorna un puntero al nodo cola
+		NodeList<T> *take(int n); //retorna un puntero al nodo en la posicion n
+		List *rest(void); //retorna la lista sin el nodo cola
+		int size(void); //retorna un entero que indica la cantidad de nodos de la lista
+		void swapData(int a, int b); //efectua un swap entre la informacion del nodo en la posicion a con el nodo en la posicion b
+		void swapData(NodeList<T> *a, NodeList<T> *b); //efectua un swap entre la informacion del nodo a con el nodo b
+		int position(T d); //retorna un entero indicando la posicion donde se encuentra el dato d
+		List<T> *listWithoutRepeat(void); //retorna una lista con todos los datos de la lista sin repetir
+		void show(void); //muestra todos los elementos de la lista
+		void showDetailed(void); //muestra todos los elementos de la lista de forma detallada
+		bool isEmpty(void); //retorna true si la lista esta vacia
 };
 
 template<class T> List<T>::List(void) {
